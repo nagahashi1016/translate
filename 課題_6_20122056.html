@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>翻訳するテキストを入力してください：</p>
+    <input type="text" name="" id="textValue">
+    <input type="button" onclick="showData()" value="En-Korea">
+    <input type="button" onclick="showData2()" value="En-Japan">
+    <div id="show"></div>
+    <div id="show2"></div>
+    <script>
+        var text = document.getElementById("textValue");
+        function showData(){
+            const url = 'https://google-translate1.p.rapidapi.com/language/translate/v2';
+            const options = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded',
+                    'Accept-Encoding': 'application/gzip',
+                    'X-RapidAPI-Key': 'ade571c757msh9d95afbf6ba4784p17e79djsn2dc34b27e3bc',
+                    'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com'
+                },
+                body: new URLSearchParams({
+                    q: text.value,
+                    target: 'ko',
+                    source: 'en'
+                })
+            };
+            fetch('https://google-translate1.p.rapidapi.com/language/translate/v2', options)
+            .then(response=> response.json())
+            .then(data=>{
+                console.log(data);
+                document.getElementById("show").innerHTML = data.data.translations[0].translatedText;
+            })
+        }
+        function showData2(){
+            const url = 'https://google-translate1.p.rapidapi.com/language/translate/v2';
+            const options = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded',
+                    'Accept-Encoding': 'application/gzip',
+                    'X-RapidAPI-Key': 'ade571c757msh9d95afbf6ba4784p17e79djsn2dc34b27e3bc',
+                    'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com'
+                },
+                body: new URLSearchParams({
+                    q: text.value,
+                    target: 'ja',
+                    source: 'en'
+                })
+            };
+            fetch('https://google-translate1.p.rapidapi.com/language/translate/v2', options)
+            .then(response=> response.json())
+            .then(data=>{
+                console.log(data);
+                document.getElementById("show2").innerHTML = data.data.translations[0].translatedText;
+            })
+        }
+    </script>
+</body>
+</html>
